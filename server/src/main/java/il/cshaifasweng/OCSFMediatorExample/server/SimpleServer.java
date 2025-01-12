@@ -52,7 +52,7 @@ public class SimpleServer extends AbstractServer {
 		}
 		//from here to line 82 is an addition
 		// Fetch menu from the server and send to client
-		else if (msgString.startsWith("fetch menu")) {
+		else if (msgString.startsWith("GET_MENU")) {
 			MenuItem[] items = menu.getMenuItems();
 			try {
 				client.sendToClient(items); // Send the menu items (array) to the client
