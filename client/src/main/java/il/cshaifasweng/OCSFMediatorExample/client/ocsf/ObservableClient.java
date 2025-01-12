@@ -75,6 +75,7 @@ public class ObservableClient extends Observable
     service.sendToServer(msg);
   }
 
+
 // ACCESSING METHODS ------------------------------------------------
 
   /**
@@ -131,6 +132,23 @@ public class ObservableClient extends Observable
     return service.getInetAddress();
   }
 
+  // New methods for menu handling
+
+  /**
+   * Sends a request to the server to fetch the current menu.
+   */
+  public void requestMenu() throws IOException {
+    sendToServer("GET_MENU");
+  }
+
+  /**
+   * Sends an updated menu to the server.
+   *
+   * @param updatedMenu the updated menu object
+   */
+  public void updateMenu(Object updatedMenu) throws IOException {
+    sendToServer(updatedMenu);
+  }
 
   /**
    * This method is used to handle messages from the server.  This method
@@ -138,10 +156,28 @@ public class ObservableClient extends Observable
    *
    * @param message The message received from the client.
    */
-  protected void handleMessageFromServer(Object message)
-  {
-    setChanged();
-    notifyObservers(message);
+  protected void handleMessageFromServer(Object message) {
+    if (message instanceof String) {
+      String response = (String) message;
+
+      if (response.startsWith("MENU:")) {
+        // Notify observers with the menu data
+        setChanged();
+        notifyObservers(response.substring(5)); // Assuming the menu is serialized after "MENU:"
+      } else if (response.equals("UPDATE_SUCCESS")) {
+        // Notify observers that the update was successful
+        setChanged();
+        notifyObservers("Menu updated successfully!");
+      } else {
+        // Handle other string messages
+        setChanged();
+        notifyObservers(response);
+      }
+    } else {
+      // Handle non-string messages (if necessary)
+      setChanged();
+      notifyObservers(message);
+    }
   }
 
   /**
