@@ -61,7 +61,6 @@ public abstract class AbstractClient implements Runnable
 {
 
 // INSTANCE VARIABLES ***********************************************
-
   /**
   * Sockets are used in the operating system as channels
   * of communication between two processes.
