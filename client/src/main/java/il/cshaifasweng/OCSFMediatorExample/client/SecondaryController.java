@@ -56,7 +56,7 @@ public class SecondaryController {
     private void switchToPrimary() throws IOException {
         App.setRoot("primary1"); // Load the primary view FXML file
     }
-
+// nothing
     @FXML
     private void updatePrice() {
         // Get selected meal and entered price
