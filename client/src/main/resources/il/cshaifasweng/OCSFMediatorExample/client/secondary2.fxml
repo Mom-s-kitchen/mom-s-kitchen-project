@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="597.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.SecondaryController">
+    <children>
+        <!-- Title Label -->
+        <Label layoutX="250.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Restaurant Menu" />
+
+        <!-- VBox for the Menu -->
+        <VBox layoutX="50.0" layoutY="70.0" prefWidth="670.0" spacing="20">
+
+            <!-- Section: New Food Items -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="MAIN DISHES" textOverrun="LEADING_ELLIPSIS" />
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Pizza" />
+                    <Label text="Cheese, Tomato, Onions, Mushroom" />
+                    <Label text="Vegetarian" />
+                    <Label style="-fx-font-weight: bold;" text="60.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Hamburger" />
+                    <Label text="Beef, Lettuce, Tomato, Bun" />
+                    <Label text="No Cheese" />
+                    <Label style="-fx-font-weight: bold;" text="65.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Veggie Hamburger" />
+                    <Label text="Vegan patty, Tomato, Pickles, Lettuce" />
+                    <Label text="Vegan" />
+                    <Label style="-fx-font-weight: bold;" text="60.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Sour Cream Spinach Pasta" />
+                    <Label text="Sour Cream, Garlic, Spinach" />
+                    <Label text="Gluten-Free" />
+                    <Label style="-fx-font-weight: bold;" text="55.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Caesar Salad" />
+                    <Label text="Lettuce, Chicken Breast, Parmesan cheese, Onions" />
+                    <Label text="Keto-Friendly" />
+                    <Label style="-fx-font-weight: bold;" text="60.00" />
+                </HBox>
+            </VBox>
+
+            <!-- Section: Existing Food Items -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="DESSERT" />
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Fatto Tiramisu" />
+                    <Label text="Coffee liqueur-soaked sponge, mascarpone, chocolate" />
+                    <Label text="Low Sugar" />
+                    <Label style="-fx-font-weight: bold;" text="18.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Scugnizzielli Nutella Gelato" />
+                    <Label text="Fried mini pizza doughnuts, Nutella, vanilla gelato" />
+                    <Label text="Extra Nutella" />
+                    <Label style="-fx-font-weight: bold;" text="15.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Lemon Meringue" />
+                    <Label text="Vanilla biscuit filled with vanilla gelato, lemon curd, meringue" />
+                    <Label text="Extra Lemon" />
+                    <Label style="-fx-font-weight: bold;" text="17.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Chocolate Salted Caramel" />
+                    <Label text="Chocolate dipped biscuit filled with salted caramel gelato" />
+                    <Label text="Extra Salted Caramel" />
+                    <Label style="-fx-font-weight: bold;" text="15.00" />
+                </HBox>
+            </VBox>
+
+            <!-- Third Section -->
+            <VBox spacing="10">
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="COFFEE" />
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Espresso" />
+                    <Label style="-fx-font-weight: bold;" text="8.00" />
+                </HBox>
+                <HBox spacing="10">
+                    <Label style="-fx-font-weight: bold;" text="Macchiato" />
+                    <Label style="-fx-font-weight: bold;" text="10.00" />
+                </HBox>
+            </VBox>
+        </VBox>
+
+        <!-- Update Price Section -->
+        <VBox layoutX="528.0" layoutY="432.0" spacing="10">
+            <Label fx:id="statusLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="" />
+            <HBox spacing="10">
+                <Label text="Select Meal:" />
+                <ComboBox fx:id="mealComboBox" prefWidth="150.0" />
+            </HBox>
+            <HBox spacing="10">
+                <Label text="New Price:" />
+                <TextField fx:id="newPriceField" promptText="Enter new price" />
+            </HBox>
+            <Button fx:id="updatePriceButton" onAction="#updatePrice" text="Update Price" />
+        </VBox>
+
+        <!-- Switch Back to Primary View Button -->
+        <Button fx:id="switchToPrimaryButton" layoutX="26.0" layoutY="549.0" onAction="#switchToPrimary" text="Switch to Primary View" />
+    </children>
+</AnchorPane>

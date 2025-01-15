@@ -7,22 +7,33 @@ import javafx.fxml.FXML;
 
 public class PrimaryController {
 
-    @FXML
-    void sendWarning(ActionEvent event) {
-    	try {
+	@FXML
+	void sendWarning(ActionEvent event) {
+		try {
 			SimpleClient.getClient().sendToServer("#warning");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 
 	@FXML
-	void initialize(){
+	void handleViewMenu() {
+		System.out.println("View Menu button clicked"); // Debug message
+		try {
+			App.setRoot("secondary2");
+			System.out.println("after try");
+		} catch (IOException e) {
+			System.out.println("after catch");
+			e.printStackTrace();
+		}
+	}
+
+
+	@FXML
+	void initialize() {
 		try {
 			SimpleClient.getClient().sendToServer("add client");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

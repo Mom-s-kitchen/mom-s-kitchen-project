@@ -24,49 +24,59 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
-    	client = SimpleClient.getClient();
-    	client.openConnection();
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        EventBus.getDefault().register(this);
+        client = SimpleClient.getClient();
+        client.openConnection();
+
+        // Load the initial scene
+        scene = new Scene(loadFXML("primary1"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("Restaurant Management System");
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        String resourcePath = "/il/cshaifasweng/OCSFMediatorExample/client/" + fxml + ".fxml";
+
+        System.out.println("Attempting to load FXML from: " + App.class.getResource(resourcePath)); // Debug message
+
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(resourcePath));
+
+        if (fxmlLoader.getLocation() == null) {
+            throw new IOException("FXML file not found at: " + resourcePath);
+        }
+
         return fxmlLoader.load();
     }
-    
-    
+
 
     @Override
-	public void stop() throws Exception {
-		// TODO Auto-generated method stub
-    	EventBus.getDefault().unregister(this);
+    public void stop() throws Exception {
+        // Cleanup on application stop
+        EventBus.getDefault().unregister(this);
         client.sendToServer("remove client");
         client.closeConnection();
-		super.stop();
-	}
-    
+        super.stop();
+    }
+
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
-    	Platform.runLater(() -> {
-    		Alert alert = new Alert(AlertType.WARNING,
-        			String.format("Message: %s\nTimestamp: %s\n",
-        					event.getWarning().getMessage(),
-        					event.getWarning().getTime().toString())
-        	);
-        	alert.show();
-    	});
-    	
+        // Handle warning events from the server
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.WARNING,
+                    String.format("Message: %s\nTimestamp: %s\n",
+                            event.getWarning().getMessage(),
+                            event.getWarning().getTime().toString())
+            );
+            alert.show();
+        });
     }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         launch();
     }
-
 }
