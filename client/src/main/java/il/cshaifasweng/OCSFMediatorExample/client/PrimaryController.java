@@ -18,6 +18,11 @@ public class PrimaryController {
     }
 
 	@FXML
+	void handleViewMenu(){
+
+	}
+
+	@FXML
 	void initialize(){
 		try {
 			SimpleClient.getClient().sendToServer("add client");

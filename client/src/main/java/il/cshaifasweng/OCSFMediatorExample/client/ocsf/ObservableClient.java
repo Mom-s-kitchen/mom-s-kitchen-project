@@ -157,27 +157,8 @@ public class ObservableClient extends Observable
    * @param message The message received from the client.
    */
   protected void handleMessageFromServer(Object message) {
-    if (message instanceof String) {
-      String response = (String) message;
-
-      if (response.startsWith("MENU:")) {
-        // Notify observers with the menu data
-        setChanged();
-        notifyObservers(response.substring(5)); // Assuming the menu is serialized after "MENU:"
-      } else if (response.equals("UPDATE_SUCCESS")) {
-        // Notify observers that the update was successful
-        setChanged();
-        notifyObservers("Menu updated successfully!");
-      } else {
-        // Handle other string messages
-        setChanged();
-        notifyObservers(response);
-      }
-    } else {
-      // Handle non-string messages (if necessary)
-      setChanged();
-      notifyObservers(message);
-    }
+    setChanged();
+    notifyObservers(message);
   }
 
   /**

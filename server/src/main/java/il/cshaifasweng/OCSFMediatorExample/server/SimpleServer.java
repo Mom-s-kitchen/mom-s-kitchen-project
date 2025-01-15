@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;*/
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
@@ -15,14 +16,14 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.SubscribedClient;
 
 public class SimpleServer extends AbstractServer {
 	private static ArrayList<SubscribedClient> SubscribersList = new ArrayList<>();
-	private Menu menu;
+	private Database database;
 	public SimpleServer(int port) {
 		super(port);
-		menu = new Menu(10); // Initialize the menu (let's assume the menu can have up to 10 items)
 	}
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+		List<MenuItem> items = database.getMenuItems();
 		String msgString = msg.toString();
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
@@ -53,7 +54,6 @@ public class SimpleServer extends AbstractServer {
 		//from here to line 82 is an addition
 		// Fetch menu from the server and send to client
 		else if (msgString.startsWith("GET_MENU")) {
-			MenuItem[] items = menu.getMenuItems();
 			try {
 				client.sendToClient(items); // Send the menu items (array) to the client
 			} catch (IOException e) {
@@ -76,8 +76,7 @@ public class SimpleServer extends AbstractServer {
 
 	// Method to update a menu item based on the given ID and price
 	private void updateMenuItem(int id, double newPrice) {
-		MenuItem[] items = menu.getMenuItems();
-		for (int i = 0; i < menu.getItemCount(); i++) {
+		for (int i = 0; i < items.getItemCount(); i++) {
 			if (items[i].getId() == id) {
 				items[i].setPrice(newPrice); // Update the price of the menu item
 				break;
